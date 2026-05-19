@@ -1,65 +1,132 @@
-import Image from "next/image";
+import Link from "next/link";
+import { STRIPE_PAYMENT_URL } from "@/lib/site";
+
+const steps = [
+  {
+    title: "Download & install",
+    body: "macOS Apple Silicon .dmg — remove quarantine with one Terminal command.",
+  },
+  {
+    title: "Add your Gemini key",
+    body: "Settings (⌘⇧,) — stored locally, encrypted by macOS when available.",
+  },
+  {
+    title: "Press ⌘⇧Space",
+    body: "Captures ~20s of mic + system audio and your screen — get hints in your language.",
+  },
+];
+
+const faq = [
+  {
+    q: "Does it work on screen share?",
+    body: "The overlay is designed to stay out of typical Zoom / Meet / Teams capture. Always verify in your own setup.",
+  },
+  {
+    q: "Do I need a paid Gemini plan?",
+    body: "Bring your own API key from Google AI Studio. LITE tier works well on the free API quota; PRO often has zero free quota.",
+  },
+  {
+    q: "Which Macs are supported?",
+    body: "Apple Silicon (M1/M2/M3/M4) only. macOS 12.3+ recommended for system audio capture.",
+  },
+];
+
+function CtaButton() {
+  if (STRIPE_PAYMENT_URL) {
+    return (
+      <a
+        href={STRIPE_PAYMENT_URL}
+        className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--accent)] px-8 text-sm font-semibold text-[#0d1224] transition hover:brightness-110"
+      >
+        Get Early Access
+      </a>
+    );
+  }
+
+  return (
+    <span className="inline-flex h-12 cursor-not-allowed items-center justify-center rounded-lg bg-white/10 px-8 text-sm font-medium text-[var(--fg-dim)]">
+      Payment link coming soon
+    </span>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="min-h-screen">
+      <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6">
+        <span className="text-lg font-semibold tracking-tight">👻 Ghost Assistant</span>
+        <span className="rounded-md border border-[var(--border)] bg-[var(--panel)] px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--accent)]">
+          Early Access
+        </span>
+      </header>
+
+      <main className="mx-auto max-w-5xl px-6 pb-24">
+        <section className="py-12 text-center sm:py-20">
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-[var(--fg-mute)]">
+            Interview copilot for engineers
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <h1 className="mx-auto max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+            Pass technical interviews with less stress
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[var(--fg-dim)]">
+            The AI copilot that listens to the call, reads your screen, and whispers hints —
+            built to stay invisible on Zoom, Google Meet, and Teams screen sharing.
+          </p>
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <CtaButton />
+            <Link
+              href="/thanks"
+              className="text-sm text-[var(--fg-dim)] underline-offset-4 hover:text-[var(--fg)] hover:underline"
+            >
+              Already purchased? Download →
+            </Link>
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-[var(--border)] bg-[var(--panel)] p-8 sm:p-12">
+          <p className="mb-2 text-center text-sm text-[var(--fg-mute)]">
+            Demo placeholder — replace with a 30s screen recording (LeetCode + ⌘⇧Space overlay)
+          </p>
+          <div className="flex aspect-video items-center justify-center rounded-xl border border-dashed border-white/10 bg-black/30 text-sm text-[var(--fg-mute)]">
+            Your product GIF / video goes here
+          </div>
+        </section>
+
+        <section className="mt-20 grid gap-6 sm:grid-cols-3">
+          {steps.map((s) => (
+            <div
+              key={s.title}
+              className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-6"
+            >
+              <h2 className="text-base font-semibold">{s.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--fg-dim)]">{s.body}</p>
+            </div>
+          ))}
+        </section>
+
+        <section className="mt-20">
+          <h2 className="mb-8 text-center text-2xl font-semibold">FAQ</h2>
+          <div className="mx-auto max-w-2xl space-y-6">
+            {faq.map((item) => (
+              <div key={item.q}>
+                <h3 className="font-medium">{item.q}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-[var(--fg-dim)]">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-20 text-center">
+          <CtaButton />
+          <p className="mt-4 text-xs text-[var(--fg-mute)]">
+            One-time early access · macOS arm64 · BYOK Gemini
+          </p>
+        </section>
       </main>
+
+      <footer className="border-t border-[var(--border)] py-8 text-center text-xs text-[var(--fg-mute)]">
+        Ghost Assistant · XPIRIO / FounderSide early access
+      </footer>
     </div>
   );
 }
