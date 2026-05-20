@@ -34,18 +34,17 @@ const faq = [
   },
 ];
 
-function PrimaryCta({ className = "" }: { className?: string }) {
-  const base =
-    "inline-flex h-12 min-w-[200px] items-center justify-center rounded-xl px-8 text-sm font-semibold tracking-tight shadow-lg transition duration-200 " +
-    className;
+const primaryCtaBase =
+  "inline-flex h-12 min-w-[200px] items-center justify-center rounded-xl px-8 text-sm font-semibold tracking-tight transition-transform duration-200 hover:scale-105";
 
+function PrimaryCta() {
   if (STRIPE_PAYMENT_URL) {
     return (
       <a
         href={STRIPE_PAYMENT_URL}
         className={
-          base +
-          "bg-white text-[#0a0a0c] shadow-white/10 hover:-translate-y-0.5 hover:bg-zinc-100 hover:shadow-xl hover:shadow-white/15 active:translate-y-0"
+          primaryCtaBase +
+          " bg-white text-[#0a0a0c] shadow-[0_0_28px_rgba(255,255,255,0.22),0_4px_14px_rgba(0,0,0,0.4)] hover:bg-zinc-100 hover:shadow-[0_0_36px_rgba(255,255,255,0.32),0_8px_20px_rgba(0,0,0,0.45)] active:scale-100"
         }
       >
         Get Early Access
@@ -56,8 +55,8 @@ function PrimaryCta({ className = "" }: { className?: string }) {
   return (
     <span
       className={
-        base +
-        "cursor-default bg-[var(--accent)] text-[#0a1020] shadow-[var(--accent)]/25 hover:brightness-110"
+        primaryCtaBase +
+        " cursor-default bg-[var(--accent)] text-[#0a1020] shadow-[0_0_28px_rgba(122,167,255,0.45),0_4px_14px_rgba(0,0,0,0.4)] hover:brightness-110 active:scale-100"
       }
       title="Stripe payment link will be enabled soon"
     >
@@ -70,7 +69,7 @@ function SecondaryCta() {
   return (
     <Link
       href="/thanks"
-      className="inline-flex h-12 items-center justify-center rounded-xl border border-white/15 bg-transparent px-6 text-sm font-medium text-[var(--fg-dim)] transition duration-200 hover:border-white/25 hover:bg-white/[0.04] hover:text-[var(--fg)]"
+      className="inline-flex h-12 items-center justify-center rounded-xl border border-white/10 bg-transparent px-6 text-sm font-medium text-[var(--fg-dim)] transition-transform duration-200 hover:scale-105 hover:border-white/20 hover:bg-white/[0.05] hover:text-[var(--fg)]"
     >
       Already purchased? Download
     </Link>
@@ -82,7 +81,7 @@ export default function Home() {
     <div className="min-h-screen">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6">
         <span className="text-lg font-semibold tracking-tight">👻 Ghost Assistant</span>
-        <span className="rounded-md border border-[var(--border)] bg-[var(--panel)] px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--accent)]">
+        <span className="rounded-md border border-white/10 bg-[var(--panel)] px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--accent)]">
           Early Access
         </span>
       </header>
@@ -92,7 +91,7 @@ export default function Home() {
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-[var(--fg-mute)]">
             Interview copilot for engineers
           </p>
-          <h1 className="mx-auto max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="mx-auto max-w-3xl bg-gradient-to-r from-white via-zinc-200 to-zinc-500 bg-clip-text text-4xl font-semibold leading-tight tracking-tight text-transparent sm:text-5xl">
             Pass technical interviews with less stress
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-[var(--fg-dim)]">
@@ -105,7 +104,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-[var(--border)] bg-[var(--panel)] p-8 sm:p-12">
+        <section className="rounded-2xl border border-white/10 bg-[var(--panel)] p-8 sm:p-12">
           <p className="mb-2 text-center text-sm text-[var(--fg-mute)]">
             Demo placeholder — replace with a 30s screen recording (LeetCode + ⌘⇧Space overlay)
           </p>
@@ -118,7 +117,7 @@ export default function Home() {
           {steps.map((s) => (
             <div
               key={s.title}
-              className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-[#22222a] to-[var(--panel)] p-6 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-lg hover:shadow-[var(--accent)]/5"
+              className="group rounded-2xl border border-white/10 bg-gradient-to-b from-[#1e1e24] to-[var(--panel)] p-6 transition duration-200 hover:scale-[1.02] hover:border-white/20 hover:bg-[#222228] hover:shadow-[0_8px_24px_rgba(0,0,0,0.25)]"
             >
               <span className="mb-4 inline-block font-mono text-[11px] font-semibold tracking-widest text-[var(--accent)]/80">
                 {s.step}
@@ -127,19 +126,17 @@ export default function Home() {
                 {s.title}
               </h2>
               <p className="mt-2.5 text-sm leading-relaxed text-[var(--fg-dim)]">{s.body}</p>
-              <div
-                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition group-hover:opacity-100"
-                aria-hidden
-              />
             </div>
           ))}
         </section>
 
         <section className="mt-20">
-          <h2 className="mb-8 text-center text-2xl font-semibold tracking-tight">FAQ</h2>
+          <h2 className="mb-8 text-center text-2xl font-semibold tracking-tight text-zinc-100">
+            FAQ
+          </h2>
           <div className="mx-auto max-w-2xl space-y-6">
             {faq.map((item) => (
-              <div key={item.q} className="border-b border-[var(--border)] pb-6 last:border-0">
+              <div key={item.q} className="border-b border-white/10 pb-6 last:border-0">
                 <h3 className="font-medium tracking-tight">{item.q}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-[var(--fg-dim)]">{item.body}</p>
               </div>
@@ -158,7 +155,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-[var(--border)] py-8 text-center text-xs text-[var(--fg-mute)]">
+      <footer className="border-t border-white/10 py-8 text-center text-xs text-[var(--fg-mute)]">
         Ghost Assistant · XPIRIO / FounderSide early access
       </footer>
     </div>

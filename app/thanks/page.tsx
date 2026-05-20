@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { CopyTerminalCommand } from "@/components/copy-terminal-command";
-import { AI_STUDIO_URL, DMG_DOWNLOAD_URL, GITHUB_RELEASES_URL } from "@/lib/site";
+import {
+  AI_STUDIO_URL,
+  APP_VERSION,
+  DMG_DOWNLOAD_URL,
+  GITHUB_RELEASES_URL,
+} from "@/lib/site";
 
 export const metadata = {
   title: "Download — Ghost Assistant",
@@ -12,12 +17,12 @@ export default function ThanksPage() {
       <div className="mx-auto max-w-lg">
         <Link
           href="/"
-          className="text-sm text-[var(--fg-dim)] transition hover:text-[var(--fg)]"
+          className="inline-flex text-sm text-[var(--fg-dim)] transition duration-200 hover:scale-[1.02] hover:text-[var(--fg)]"
         >
           ← Back
         </Link>
 
-        <h1 className="mt-8 text-3xl font-semibold tracking-tight">
+        <h1 className="mt-8 bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-3xl font-semibold tracking-tight text-transparent">
           You&apos;re in — thanks!
         </h1>
         <p className="mt-3 leading-relaxed text-[var(--fg-dim)]">
@@ -29,14 +34,14 @@ export default function ThanksPage() {
             <p className="font-medium text-[var(--fg)]">Download the app</p>
             <p className="mt-2 text-[var(--fg-dim)]">
               <a
-                className="font-medium text-[var(--accent)] underline underline-offset-2 transition hover:brightness-125"
+                className="font-medium text-[var(--accent)] underline underline-offset-2 transition duration-200 hover:brightness-125"
                 href={DMG_DOWNLOAD_URL}
               >
-                Ghost Assistant 0.3.1 (arm64 .dmg)
+                Ghost Assistant v{APP_VERSION} (arm64 .dmg)
               </a>
               {" · "}
               <a
-                className="text-[var(--fg-dim)] underline underline-offset-2 transition hover:text-[var(--fg)]"
+                className="text-[var(--fg-dim)] underline underline-offset-2 transition duration-200 hover:text-[var(--fg)]"
                 href={GITHUB_RELEASES_URL}
               >
                 all releases
@@ -52,7 +57,7 @@ export default function ThanksPage() {
             <CopyTerminalCommand />
           </li>
 
-          <li>
+          <li className="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition duration-200 hover:border-white/15">
             <p className="font-medium text-[var(--fg)]">Grant permissions</p>
             <p className="mt-2 text-[var(--fg-dim)]">
               Microphone, Screen Recording, and Accessibility (for global hotkeys).
@@ -60,12 +65,12 @@ export default function ThanksPage() {
             </p>
           </li>
 
-          <li>
+          <li className="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition duration-200 hover:border-white/15">
             <p className="font-medium text-[var(--fg)]">Gemini API key</p>
             <p className="mt-2 text-[var(--fg-dim)]">
               Get a key from{" "}
               <a
-                className="font-medium text-[var(--accent)] underline underline-offset-2"
+                className="font-medium text-[var(--accent)] underline underline-offset-2 transition duration-200 hover:brightness-125"
                 href={AI_STUDIO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -76,14 +81,14 @@ export default function ThanksPage() {
             </p>
           </li>
 
-          <li>
+          <li className="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition duration-200 hover:border-white/15">
             <p className="font-medium text-[var(--fg)]">Use LITE on free tier</p>
             <p className="mt-2 text-[var(--fg-dim)]">
               Press ⌘⇧P until the badge shows LITE. PRO often has zero quota on free API plans.
             </p>
           </li>
 
-          <li>
+          <li className="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition duration-200 hover:border-white/15">
             <p className="font-medium text-[var(--fg)]">During the interview</p>
             <p className="mt-2 text-[var(--fg-dim)]">
               <kbd className="rounded-md border border-white/10 bg-white/[0.06] px-2 py-0.5 font-mono text-xs text-[var(--fg)]">

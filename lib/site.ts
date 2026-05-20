@@ -2,6 +2,8 @@
 export const STRIPE_PAYMENT_URL =
   process.env.NEXT_PUBLIC_STRIPE_PAYMENT_URL || "";
 
+export const APP_VERSION = "0.4.0";
+
 export const DMG_DOWNLOAD_URL =
   "https://github.com/knodelchik/ghost-assistant/releases/download/v0.4.0/Ghost.Assistant-0.4.0-arm64.dmg";
 
