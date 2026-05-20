@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { STRIPE_PAYMENT_URL } from "@/lib/site";
 
 const steps = [
@@ -65,17 +64,6 @@ function PrimaryCta() {
   );
 }
 
-function SecondaryCta() {
-  return (
-    <Link
-      href="/thanks"
-      className="inline-flex h-12 items-center justify-center rounded-xl border border-white/10 bg-transparent px-6 text-sm font-medium text-[var(--fg-dim)] transition-transform duration-200 hover:scale-105 hover:border-white/20 hover:bg-white/[0.05] hover:text-[var(--fg)]"
-    >
-      Already purchased? Download
-    </Link>
-  );
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen">
@@ -98,9 +86,8 @@ export default function Home() {
             The AI copilot that listens to the call, reads your screen, and whispers hints —
             built to stay invisible on Zoom, Google Meet, and Teams screen sharing.
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <div className="mt-10 flex justify-center">
             <PrimaryCta />
-            <SecondaryCta />
           </div>
         </section>
 
@@ -145,9 +132,8 @@ export default function Home() {
         </section>
 
         <section className="mt-20 text-center">
-          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <div className="flex justify-center">
             <PrimaryCta />
-            <SecondaryCta />
           </div>
           <p className="mt-5 text-xs tracking-wide text-[var(--fg-mute)]">
             One-time early access · macOS arm64 · BYOK Gemini
