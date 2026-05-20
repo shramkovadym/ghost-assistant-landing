@@ -19,4 +19,10 @@
 body {
   background: var(--bg);
   color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+kbd {
+  font-family: var(--font-mono), ui-monospace, monospace;
 }

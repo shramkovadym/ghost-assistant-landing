@@ -3,14 +3,17 @@ import { STRIPE_PAYMENT_URL } from "@/lib/site";
 
 const steps = [
   {
+    step: "01",
     title: "Download & install",
     body: "macOS Apple Silicon .dmg — remove quarantine with one Terminal command.",
   },
   {
+    step: "02",
     title: "Add your Gemini key",
     body: "Settings (⌘⇧,) — stored locally, encrypted by macOS when available.",
   },
   {
+    step: "03",
     title: "Press ⌘⇧Space",
     body: "Captures ~20s of mic + system audio and your screen — get hints in your language.",
   },
@@ -31,12 +34,19 @@ const faq = [
   },
 ];
 
-function CtaButton() {
+function PrimaryCta({ className = "" }: { className?: string }) {
+  const base =
+    "inline-flex h-12 min-w-[200px] items-center justify-center rounded-xl px-8 text-sm font-semibold tracking-tight shadow-lg transition duration-200 " +
+    className;
+
   if (STRIPE_PAYMENT_URL) {
     return (
       <a
         href={STRIPE_PAYMENT_URL}
-        className="inline-flex h-12 items-center justify-center rounded-lg bg-[var(--accent)] px-8 text-sm font-semibold text-[#0d1224] transition hover:brightness-110"
+        className={
+          base +
+          "bg-white text-[#0a0a0c] shadow-white/10 hover:-translate-y-0.5 hover:bg-zinc-100 hover:shadow-xl hover:shadow-white/15 active:translate-y-0"
+        }
       >
         Get Early Access
       </a>
@@ -44,9 +54,26 @@ function CtaButton() {
   }
 
   return (
-    <span className="inline-flex h-12 cursor-not-allowed items-center justify-center rounded-lg bg-white/10 px-8 text-sm font-medium text-[var(--fg-dim)]">
-      Payment link coming soon
+    <span
+      className={
+        base +
+        "cursor-default bg-[var(--accent)] text-[#0a1020] shadow-[var(--accent)]/25 hover:brightness-110"
+      }
+      title="Stripe payment link will be enabled soon"
+    >
+      Get Early Access — soon
     </span>
+  );
+}
+
+function SecondaryCta() {
+  return (
+    <Link
+      href="/thanks"
+      className="inline-flex h-12 items-center justify-center rounded-xl border border-white/15 bg-transparent px-6 text-sm font-medium text-[var(--fg-dim)] transition duration-200 hover:border-white/25 hover:bg-white/[0.04] hover:text-[var(--fg)]"
+    >
+      Already purchased? Download
+    </Link>
   );
 }
 
@@ -72,14 +99,9 @@ export default function Home() {
             The AI copilot that listens to the call, reads your screen, and whispers hints —
             built to stay invisible on Zoom, Google Meet, and Teams screen sharing.
           </p>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <CtaButton />
-            <Link
-              href="/thanks"
-              className="text-sm text-[var(--fg-dim)] underline-offset-4 hover:text-[var(--fg)] hover:underline"
-            >
-              Already purchased? Download →
-            </Link>
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <PrimaryCta />
+            <SecondaryCta />
           </div>
         </section>
 
@@ -92,33 +114,45 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="mt-20 grid gap-6 sm:grid-cols-3">
+        <section className="mt-20 grid gap-5 sm:grid-cols-3">
           {steps.map((s) => (
             <div
               key={s.title}
-              className="rounded-xl border border-[var(--border)] bg-[var(--panel)] p-6"
+              className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-[#22222a] to-[var(--panel)] p-6 transition duration-300 hover:-translate-y-1 hover:border-[var(--accent)]/30 hover:shadow-lg hover:shadow-[var(--accent)]/5"
             >
-              <h2 className="text-base font-semibold">{s.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--fg-dim)]">{s.body}</p>
+              <span className="mb-4 inline-block font-mono text-[11px] font-semibold tracking-widest text-[var(--accent)]/80">
+                {s.step}
+              </span>
+              <h2 className="text-base font-semibold tracking-tight text-[var(--fg)]">
+                {s.title}
+              </h2>
+              <p className="mt-2.5 text-sm leading-relaxed text-[var(--fg-dim)]">{s.body}</p>
+              <div
+                className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 transition group-hover:opacity-100"
+                aria-hidden
+              />
             </div>
           ))}
         </section>
 
         <section className="mt-20">
-          <h2 className="mb-8 text-center text-2xl font-semibold">FAQ</h2>
+          <h2 className="mb-8 text-center text-2xl font-semibold tracking-tight">FAQ</h2>
           <div className="mx-auto max-w-2xl space-y-6">
             {faq.map((item) => (
-              <div key={item.q}>
-                <h3 className="font-medium">{item.q}</h3>
-                <p className="mt-1 text-sm leading-relaxed text-[var(--fg-dim)]">{item.body}</p>
+              <div key={item.q} className="border-b border-[var(--border)] pb-6 last:border-0">
+                <h3 className="font-medium tracking-tight">{item.q}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--fg-dim)]">{item.body}</p>
               </div>
             ))}
           </div>
         </section>
 
         <section className="mt-20 text-center">
-          <CtaButton />
-          <p className="mt-4 text-xs text-[var(--fg-mute)]">
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+            <PrimaryCta />
+            <SecondaryCta />
+          </div>
+          <p className="mt-5 text-xs tracking-wide text-[var(--fg-mute)]">
             One-time early access · macOS arm64 · BYOK Gemini
           </p>
         </section>
