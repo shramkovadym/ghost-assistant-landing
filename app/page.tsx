@@ -2,6 +2,7 @@ import Link from "next/link";
 import { STRIPE_PAYMENT_URL } from "@/lib/site";
 import { Reveal } from "@/components/reveal";
 import { MacWindow } from "@/components/mac-window";
+import { DemoPlayer } from "@/components/demo-player";
 
 const features = [
   {
@@ -413,7 +414,46 @@ export default function Home() {
           </Reveal>
         </section>
 
-        <section className="mt-32">
+        <section className="mt-16">
+          <Reveal>
+            <details className="group mx-auto max-w-2xl overflow-hidden rounded-2xl border border-white/[0.06] bg-[var(--panel)]/30 transition hover:border-white/[0.12]">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/[0.05] text-[var(--accent)] ring-1 ring-white/10">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                  <div className="text-left">
+                    <span className="block text-sm font-medium tracking-tight text-[var(--fg)]">
+                      Curious how it actually looks?
+                    </span>
+                    <span className="block text-[11px] text-[var(--fg-mute)]">
+                      30-second unedited screen recording
+                    </span>
+                  </div>
+                </div>
+                <svg
+                  className="shrink-0 text-[var(--fg-mute)] transition-transform duration-300 group-open:rotate-180"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  aria-hidden
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </summary>
+              <div className="px-4 pb-4 pt-1 sm:px-5 sm:pb-5">
+                <DemoPlayer />
+              </div>
+            </details>
+          </Reveal>
+        </section>
+
+        <section className="mt-24">
           <Reveal>
             <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a1a26] via-[#13131a] to-[#0c0c12] px-6 py-14 text-center sm:px-12 sm:py-20">
               <div className="absolute inset-0 -z-10 opacity-50">
