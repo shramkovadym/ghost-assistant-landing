@@ -109,7 +109,7 @@ const faq = [
   },
   {
     q: "Which Macs are supported?",
-    body: "Apple Silicon only (M1, M2, M3, M4). macOS 12.3+ recommended for system-audio capture. Intel Macs are not supported.",
+    body: "All Apple Silicon Macs — M1 through M5 (yes, the brand-new M5 is supported too). macOS 12.3+ recommended for system-audio capture. Intel Macs are not supported.",
   },
   {
     q: "Is this just Cluely / Cheating Daddy?",
@@ -350,7 +350,7 @@ export default function Home() {
 
                 <ul className="mt-6 space-y-2.5 text-sm">
                   {[
-                    "macOS arm64 .dmg (M1 / M2 / M3 / M4)",
+                    "macOS arm64 .dmg — M1 through M5 supported",
                     "Dual-audio + screenshot context",
                     "Invisible on Zoom / Meet / Teams screen share",
                     "Bring your own Gemini API key (free tier works)",
