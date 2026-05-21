@@ -1,14 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #121216;
-  --panel: #1c1c22;
+  --bg: #08080a;
+  --bg-elev: #0e0e12;
+  --panel: #14141a;
+  --panel-elev: #1a1a22;
   --border: rgba(255, 255, 255, 0.08);
-  --fg: #f0f0f3;
-  --fg-dim: rgba(240, 240, 243, 0.55);
-  --fg-mute: rgba(240, 240, 243, 0.35);
-  --accent: #7aa7ff;
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --fg: #f4f4f7;
+  --fg-dim: rgba(244, 244, 247, 0.62);
+  --fg-mute: rgba(244, 244, 247, 0.38);
+  --accent: #8ab4ff;
+  --accent-2: #c084fc;
+  --accent-glow: rgba(138, 180, 255, 0.45);
   --accent-pro: #ffb86b;
+  --success: #4ade80;
 }
 
 @theme inline {
@@ -16,13 +22,263 @@
   --font-mono: var(--font-geist-mono);
 }
 
-body {
-  background: var(--bg);
-  color: var(--fg);
+* {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background: var(--accent-glow);
+  color: white;
+}
+
 kbd {
   font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* === Background atmosphere === */
+.aurora {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.aurora::before,
+.aurora::after {
+  content: "";
+  position: absolute;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.32;
+  will-change: transform;
+}
+
+.aurora::before {
+  top: -30vw;
+  left: -15vw;
+  background: radial-gradient(circle, #4f46e5 0%, transparent 65%);
+  animation: float-orb-a 22s ease-in-out infinite;
+}
+
+.aurora::after {
+  top: 25vw;
+  right: -25vw;
+  background: radial-gradient(circle, #a855f7 0%, transparent 65%);
+  animation: float-orb-b 26s ease-in-out infinite;
+}
+
+@keyframes float-orb-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(15vw, 12vh) scale(1.12); }
+}
+
+@keyframes float-orb-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-12vw, 18vh) scale(0.92); }
+}
+
+.grid-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at center top, black 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse 80% 60% at center top, black 0%, transparent 70%);
+}
+
+/* === Scroll reveal === */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Float === */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.float-y {
+  animation: float-y 4s ease-in-out infinite;
+}
+
+/* === Pulse === */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+
+.pulse-dot {
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+
+/* === Shimmer (CTA shine) === */
+@keyframes shine {
+  0% { background-position: -150% 0; }
+  60%, 100% { background-position: 150% 0; }
+}
+
+.cta-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cta-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 70%);
+  background-size: 200% 100%;
+  animation: shine 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* === Typing dots === */
+@keyframes typing {
+  0%, 60%, 100% { opacity: 0.25; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-3px); }
+}
+
+.typing-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--fg-dim);
+  animation: typing 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0.32s; }
+
+/* === Card border-glow on hover === */
+.card-glow {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.card-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg,
+    rgba(138, 180, 255, 0) 0%,
+    rgba(138, 180, 255, 0) 40%,
+    rgba(192, 132, 252, 0.6) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card-glow:hover {
+  transform: translateY(-2px);
+}
+
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+/* === Overlay mock entrance === */
+@keyframes overlay-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.overlay-in {
+  animation: overlay-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+/* === Nav blur === */
+.nav-blur {
+  background: rgba(8, 8, 10, 0.6);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* === Gradient text === */
+.text-grad-light {
+  background: linear-gradient(180deg, #ffffff 0%, #c4c4cc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-grad-accent {
+  background: linear-gradient(135deg, #ffffff 0%, #8ab4ff 60%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* === Hotkey chip === */
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 8px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: #e4e4e7;
+  background: linear-gradient(180deg, #2a2a32 0%, #1a1a20 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* === Reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
 }
