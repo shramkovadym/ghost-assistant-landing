@@ -429,7 +429,7 @@ export default function Home() {
                       Curious how it actually looks?
                     </span>
                     <span className="block text-[11px] text-[var(--fg-mute)]">
-                      30-second unedited screen recording
+                      Two short unedited screen recordings
                     </span>
                   </div>
                 </div>
